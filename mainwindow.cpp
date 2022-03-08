@@ -124,55 +124,40 @@ bool subscript_state=false;
 bool superscript_state=false;
 void MainWindow::on_actionSubscript_2_triggered()
 {
-    if(!subscript_state)
-    {
-        if(mFont.bold()){
-            ui->textEdit->insertHtml("<sub><b>~<b></sub>");
-        }
-        else
-        {
-            ui->textEdit->insertHtml("<sub>~</sub>");
-        }
-        subscript_state = true;
+    if(!subscript_state){
+        QTextCharFormat format;
+        format.setVerticalAlignment(QTextCharFormat::AlignSubScript);
+        if(ui->textEdit->hasFocus())
+            ui->textEdit->mergeCurrentCharFormat(format);
+        subscript_state=true;
     }
-    else
-    {
-        if(mFont.bold()){
-            ui->textEdit->insertHtml("<b>~</b>");
-        }
-        else
-        {
-            ui->textEdit->insertHtml("~");
-        }
-        subscript_state = false;
+    else {
+        QTextCharFormat format;
+        format.setVerticalAlignment(QTextCharFormat::AlignNormal);
+        if(ui->textEdit->hasFocus())
+            ui->textEdit->mergeCurrentCharFormat(format);
+        subscript_state=false;
     }
-    superscript_state = false;
+    superscript_state=false;
 }
 
 void MainWindow::on_actionSuperScript_triggered()
 {
-    if(!superscript_state)
-    {
-        if(mFont.bold())
-        {
-            ui->textEdit->insertHtml("<sup><b>~</b></sup>");
-        } else
-        {
-            ui->textEdit->insertHtml("<sup>~</sup>");
-        }
-        superscript_state = true;
+    if(superscript_state==false){
+        QTextCharFormat format;
+        format.setVerticalAlignment(QTextCharFormat::AlignSuperScript);
+        if(ui->textEdit->hasFocus())
+            ui->textEdit->mergeCurrentCharFormat(format);
+        superscript_state=true;
     }
-    else
-    {
-        if(mFont.bold())
-        {
-            ui->textEdit->insertHtml("<b>~</b>");
-        } else {
-            ui->textEdit->insertHtml("~");
-        }
-        superscript_state = false;
+    else {
+        QTextCharFormat format;
+        format.setVerticalAlignment(QTextCharFormat::AlignNormal);
+        if(ui->textEdit->hasFocus())
+            ui->textEdit->mergeCurrentCharFormat(format);
+        superscript_state=false;
     }
-    subscript_state = false;
+    subscript_state=false;
 }
 
 
